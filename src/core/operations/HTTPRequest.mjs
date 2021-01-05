@@ -63,6 +63,11 @@ class HTTPRequest extends Operation {
                 ]
             },
             {
+                "name": "Include credentials",
+                "type": "boolean",
+                "value": false
+            },
+            {
                 "name": "Show response metadata",
                 "type": "boolean",
                 "value": false
@@ -76,7 +81,7 @@ class HTTPRequest extends Operation {
      * @returns {string}
      */
     run(input, args) {
-        const [method, url, headersText, mode, showResponseMetadata] = args;
+        const [method, url, headersText, mode, sendCreds, showResponseMetadata] = args;
 
         if (url.length === 0) return "";
 
@@ -98,6 +103,10 @@ class HTTPRequest extends Operation {
             mode: modeLookup[mode],
             cache: "no-cache",
         };
+
+        if (sendCreds) {
+            config.credentials = "include";
+        }
 
         if (method !== "GET" && method !== "HEAD") {
             config.body = input;
@@ -140,6 +149,7 @@ class HTTPRequest extends Operation {
  */
 const modeLookup = {
     "Cross-Origin Resource Sharing": "cors",
+    "Cross-Origin Resource Sharing With Creds": "cors-creds",
     "No CORS (limited to HEAD, GET or POST)": "no-cors",
 };
 
