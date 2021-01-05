@@ -149,7 +149,6 @@ class HTTPRequest extends Operation {
  */
 const modeLookup = {
     "Cross-Origin Resource Sharing": "cors",
-    "Cross-Origin Resource Sharing With Creds": "cors-creds",
     "No CORS (limited to HEAD, GET or POST)": "no-cors",
 };
 
